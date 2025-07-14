@@ -2,7 +2,7 @@ name: ts_decomp_env
 channels:
   - conda-forge
 dependencies:
-  - gxx
+  - clangxx
   - make
   - liblapacke
   - python=3.11
