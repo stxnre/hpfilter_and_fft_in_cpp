@@ -4,6 +4,7 @@ channels:
 dependencies:
   - gxx
   - make
+  - liblapacke
   - python=3.11
   - pandas
   - numpy
