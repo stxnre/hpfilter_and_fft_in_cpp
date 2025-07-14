@@ -1,0 +1,11 @@
+name: ts_decomp_env
+channels:
+  - conda-forge
+dependencies:
+  - gxx
+  - make
+  - python=3.11
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
