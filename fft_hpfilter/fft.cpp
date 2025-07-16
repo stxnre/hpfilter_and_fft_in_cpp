@@ -2,7 +2,7 @@
 
 const double pi = std::acos(-1);
 
-void rad2_fft(std::vector<double> &input){
+std::vector<std::complex<double>> rad2_fft(std::vector<double> &input){
    /*
    Implementation of the Radix-2 Cooley-Tukey Fast Fourier Transform.
    The input size must be a positive power of 2.
@@ -10,16 +10,17 @@ void rad2_fft(std::vector<double> &input){
    */
    const int N = input.size();
 
+   std::vector<std::complex<double>> out; //the output
+
    if((std::log2(N) % 1) != 0){
     cout << "Cannot Perform Radix-2 FFT with this input.";
-    return {std::complex<double>()};
+    return out;
    } 
 
    if(N==1){
     return input;
    }
 
-   std::vector<std::complex<double>> out; //the output
    std::vector<double> odd;
    std::vector<double> even;
    int i,j;
