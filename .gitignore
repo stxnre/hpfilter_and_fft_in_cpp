@@ -1,4 +1,4 @@
-.DS_store
+fft_hpfilter/fft.o
+fft_hpfilter/main.o
 
-/fft_hpfilter/fft.o
-/fft_hpfilter/main.o
+.DS_store
