@@ -9,16 +9,17 @@ std::vector<std::complex<double>> rad2_fft(std::vector<double> &input){
    Can also perform the Inverse Fast Fourier Transform.
    */
    const int N = input.size();
-
    std::vector<std::complex<double>> out; //the output
+   bool powerOfTwo = !(N == 0) && !(N & (N - 1));
 
-   if((std::log2(N) % 1) != 0){
-    cout << "Cannot Perform Radix-2 FFT with this input.";
+   if(!powerOfTwo){
+    std::cout << "Cannot Perform Radix-2 FFT with this input.";
     return out;
    } 
 
    if(N==1){
-    return input;
+    out.push_back(std::complex<double>(input[0],0));
+    return out;
    }
 
    std::vector<double> odd;
