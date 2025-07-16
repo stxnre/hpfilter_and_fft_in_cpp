@@ -10,9 +10,9 @@ void rad2_fft(std::vector<double> &input){
    */
    const int N = input.size();
 
-   if(std::log2(N) % 1 != 0){
+   if((std::log2(N) % 1) != 0){
     cout << "Cannot Perform Radix-2 FFT with this input.";
-    return;
+    return {std::complex<double>()};
    } 
 
    if(N==1){
@@ -44,7 +44,7 @@ void rad2_fft(std::vector<double> &input){
 std::vector<double> periodogram(std::vector<std::complex<double>> &spectral){
     int i;
     const int N = spectral.size();
-    vector<double> result(N);
+    std::vector<double> result(N);
     for(i=0;i<N;i++){
         result[i] = pow(abs(spectral[i]),2) / N;
     }
