@@ -23,7 +23,7 @@ void pentadiag_cholesky_decomp(std::vector<double> &a, std::vector<double> &b, s
     return;
 }
 
-std::vector<double> pentadiag_cholesky_solver(std::vector<double> &a, std::vector<double> &b, std::vector<double> &c, std::vector<double> &z ){
+std::vector<double> pentadiag_cholesky_solver(std::vector<double> &a, std::vector<double> &b, std::vector<double> &c,const std::vector<double> &z ){
     /*
     Solves linear system Ax = z, where A is symmetric and pentadiagonal (and has been Cholesky-decomposed and stored in
     a,b, and c). 
@@ -32,7 +32,7 @@ std::vector<double> pentadiag_cholesky_solver(std::vector<double> &a, std::vecto
     */
     int N = a.size();
 
-    std::vector<double> x(n,0);
+    std::vector<double> x(N,0);
 
     //forward substitution
     x[0] = z[0] / a[0];
@@ -67,15 +67,15 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter(const std::vector<do
 
     d0[0] = 1 + lambda;
     d0[1] = 1 + 5 * lambda;
-    d0[n-1] = 1 + 5 * lambda;
+    d0[N-1] = 1 + 5 * lambda;
     d1[0] = -2 * lambda;
 
     pentadiag_cholesky_decomp(d0,d1,d2);
 
     std::vector<double> trend = pentadiag_cholesky_solver(d0,d1,d2,series);
-    std::vector<double> seasonal(N)
+    std::vector<double> seasonal(N);
 
-    for(int i=0;i<n;i++)
+    for(int i=0;i<N;i++)
     {
         seasonal[i] = series[i] - trend[i];
     }
@@ -95,7 +95,7 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter_lapacke(const std::v
 
     d0[0] = 1 + lambda;
     d0[1] = 1 + 5 * lambda;
-    d0[n-1] = 1 + 5 * lambda;
+    d0[N-1] = 1 + 5 * lambda;
     d1[0] = -2 * lambda;
 
 
@@ -103,20 +103,27 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter_lapacke(const std::v
     std::vector<double> banded((kd + 1) * N,0);
     for (int i = 0; i < N; i++) {
         banded[(kd) + i*(kd+1)] = d0[i];  // main diagonal on row kd
-        if (i < n-1)
+        if (i < N-1)
             banded[(kd-1) + (i+1)*(kd+1)] = d1[i]; // first superdiag on row kd-1, shifted right by 1
-        if (i < n-2)
+        if (i < N-2)
             banded[(kd-2) + (i+2)*(kd+1)] = d2[i]; // second superdiag on row kd-2, shifted right by 2
     }
 
     std::vector<double> series_copy = series;
 
     //Solve pentadiagonal system with LAPACKE
-    int info = LAPACKE_dpbsv(LAPACK_COL_MAJOR, 'U', N, kd, Nrhs, banded.data(), kd + 1, series_copy.data(), n);
+    int info = LAPACKE_dpbsv(LAPACK_COL_MAJOR, 'U', N, kd, Nrhs, banded.data(), kd + 1, series_copy.data(), N);
 
     if(info!=0){
         std::cout << "DPBSV failed with error code " << info << std::endl;
     }
 
-    return series_copy;
+    std::vector<double> seasonal(N);
+
+    for(int i=0;i<N;i++)
+    {
+        seasonal[i] = series[i] - series_copy[i];
+    }
+
+    return make_pair(series_copy,seasonal);
 }
