@@ -3,5 +3,5 @@
 #include <vector>
 #include <complex>
 
-void rad2_fft(std::vector<double> &input);
+std::vector<std::complex<double>> rad2_fft(std::vector<double> &input);
 std::vector<double> periodogram(std::vector<std::complex<double>> &spectral);

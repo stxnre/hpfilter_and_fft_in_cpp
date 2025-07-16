@@ -46,8 +46,8 @@ int main(){
     std::ofstream outputFile("season_trend_decomp.csv");
     if(!outputFile.is_open()) throw std::runtime_error("Error: Could not open output file.");
 
-    outputFile << "datetime,original,trend,seasonal\n"
-    for(int i = 0;i<datetime.size();i++){
+    outputFile << "datetime,original,trend,seasonal\n";
+    for(int i = 0;i<datetimes.size();i++){
         outputFile << datetimes[i] << ','
                     << x[i] << ','
                     << (*trend)[i] << ','
