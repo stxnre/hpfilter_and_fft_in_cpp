@@ -3,3 +3,4 @@
 .DS_Store
 fft_hpfilter/fft.o
 fft_hpfilter/main.o
+fft_hpfilter/seasonal_decompose
