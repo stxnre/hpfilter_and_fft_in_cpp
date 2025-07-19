@@ -4,3 +4,4 @@
 fft_hpfilter/fft.o
 fft_hpfilter/main.o
 fft_hpfilter/seasonal_decompose
+fft_hpfilter/seasonal_trend_decomp.csv
