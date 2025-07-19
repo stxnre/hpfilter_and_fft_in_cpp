@@ -13,7 +13,7 @@ g++ main.o hpfilter.o fft.o -o seasonal_trend
 */
 
 int main(){
-    int lambda = 2000;
+    int lambda = 100000;
 
     // Read data
     std::ifstream inputFile("AEP_hourly.csv");
