@@ -36,9 +36,14 @@ int main(){
         dates.push_back(token);
 
         std::vector<double> row;
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; i++) {
             std::getline(ss, token, ',');
-            row.push_back(std::stod(token));
+            
+            if (token=="NA"||token.empty()) {
+                row.push_back(std::nan(""));
+            } else {
+                row.push_back(std::stod(token));
+            }
         }
         data.push_back(row);
     }
@@ -46,15 +51,15 @@ int main(){
     inputFile.close();
 
     // Electricity Production
-    std::vector<double> x;
+    std::vector<double> electric;
     for (const auto& row : data) {
     if (row.size() > 4) {
-        x.push_back(row[4]);
+        electric.push_back(row[4]);
     }
 }
 
     // Smoothing
-    std::pair<std::vector<double>,std::vector<double>> smoothed = hpfilter_lapacke(x,lambda);
+    std::pair<std::vector<double>,std::vector<double>> smoothed = hpfilter_lapacke(electric,lambda);
     std::vector<double>* trend = &std::get<0>(smoothed);
     std::vector<double>* seasonal = &std::get<1>(smoothed);
 
@@ -65,14 +70,14 @@ int main(){
     outputFile << "Quarter,Original,Trend,Seasonal\n";
     for(int i = 0;i<dates.size();i++){
         outputFile << dates[i] << ','
-                    << x[i] << ','
+                    << electric[i] << ','
                     << (*trend)[i] << ','
                     << (*seasonal)[i] << '\n';
     }
     outputFile.close();
 
     // Spectral Analysis
-    int k = (int)std::log2(x.size());
+    int k = (int)std::log2(electric.size());
     int N = pow(2,k);
 
     std::vector<double> time_rep(N);
