@@ -9,7 +9,7 @@ std::vector<std::complex<double>> rad2_fft(std::vector<double> &input){
    Can also perform the Inverse Fast Fourier Transform.
    */
    const int N = input.size();
-   std::vector<std::complex<double>> out; //the output
+   std::vector<std::complex<double>> out(N); //the output
    bool powerOfTwo = !(N == 0) && !(N & (N - 1));
 
    if(!powerOfTwo){
@@ -18,7 +18,7 @@ std::vector<std::complex<double>> rad2_fft(std::vector<double> &input){
    } 
 
    if(N==1){
-    out.push_back(std::complex<double>(input[0],0));
+    out[0] = std::complex<double>(input[0],0);
     return out;
    }
 
