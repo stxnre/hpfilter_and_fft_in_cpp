@@ -95,8 +95,10 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter_lapacke(const std::v
 
     d0[0] = 1 + lambda;
     d0[1] = 1 + 5 * lambda;
-    d0[N-1] = 1 + 5 * lambda;
+    d0[N-2] = 1 + 5 * lambda;
+    d0[N-1] = 1 + lambda;
     d1[0] = -2 * lambda;
+    d1[N-2] = -2 * lambda;
 
 
     //Banded matrix
