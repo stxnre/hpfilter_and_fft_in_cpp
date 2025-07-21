@@ -37,6 +37,7 @@ int main(){
     }
     inputFile.close();
 
+
     // Smoothing
     std::pair<std::vector<double>,std::vector<double>> smoothed = hpfilter_lapacke(x,lambda);
     std::vector<double>* trend = &std::get<0>(smoothed);
