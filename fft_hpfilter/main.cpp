@@ -13,30 +13,45 @@ g++ main.o hpfilter.o fft.o -o seasonal_trend
 */
 
 int main(){
-    int lambda = 100000;
+    int lambda = 1000;
 
     // Read data
-    std::ifstream inputFile("AEP_hourly.csv");
+    std::ifstream inputFile("aus_production.csv");
     if(!inputFile.is_open()) throw std::runtime_error("Error: Could not open file.");
 
     std::string header;
     std::getline(inputFile, header);  // header not needed
 
-    std::vector<std::string> datetimes;
-    std::vector<double> x;
+    std::vector<std::string> dates;
+    std::vector<std::vector<double>> data;
 
     std::string line;
+
     while (std::getline(inputFile, line)) {
         std::stringstream ss(line);
-        std::string datetime, x_str;
+        std::string token;
 
-        if (std::getline(ss, datetime, ',') && std::getline(ss, x_str)) {
-            datetimes.push_back(datetime);
-            x.push_back(std::stod(x_str));
+        // Read date column
+        std::getline(ss, token, ',');
+        dates.push_back(token);
+
+        std::vector<double> row;
+        for (int i = 0; i < 6; ++i) {
+            std::getline(ss, token, ',');
+            row.push_back(std::stod(token));
         }
+        data.push_back(row);
     }
+
     inputFile.close();
 
+    // Electricity Production
+    std::vector<double> x;
+    for (const auto& row : data) {
+    if (row.size() > 4) {
+        x.push_back(row[4]);
+    }
+}
 
     // Smoothing
     std::pair<std::vector<double>,std::vector<double>> smoothed = hpfilter_lapacke(x,lambda);
@@ -47,9 +62,9 @@ int main(){
     std::ofstream outputFile("season_trend_decomp.csv");
     if(!outputFile.is_open()) throw std::runtime_error("Error: Could not open output file.");
 
-    outputFile << "datetime,original,trend,seasonal\n";
-    for(int i = 0;i<datetimes.size();i++){
-        outputFile << datetimes[i] << ','
+    outputFile << "Quarter,Original,Trend,Seasonal\n";
+    for(int i = 0;i<dates.size();i++){
+        outputFile << dates[i] << ','
                     << x[i] << ','
                     << (*trend)[i] << ','
                     << (*seasonal)[i] << '\n';
