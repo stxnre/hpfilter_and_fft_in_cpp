@@ -22,7 +22,7 @@ $\theta_t$ ultimately has a closed form, which can be computed by solving a symm
 
 For decomposing a time series, the HP Filter is disadvantaged by the fact that it assumes that the season-trend model is additive; if the effects are multiplicative, the HP Filter is not an appropriate tool. In `aus_production`, I chose to mainly examine Beer production, as it was the series that seemed to most closely follow an additive season-trend model. 
 
-One advantage that the HP Filter has is its similarity to Gaussian Kernel Smoothing. But while that method 
+One advantage that the HP Filter has is its similarity to Gaussian Kernel Smoothing. But while that method involves a full matrix inversion, which is expensive and prone to numerical instability, the HP Filter being a positive-definite, banded, and symetric system means that the computation is only $O(n)$.
 
 ### Cooley-Tukey Fast-Fourier Transform (FFT)
 
@@ -32,7 +32,7 @@ $$
     X_k = \sum_{t=0}^{n-1} x_t e^{-i 2\pi \frac{kt}{n}}
 $$
 
-the DFT is a crucial method in signal processing and for the Power Spectral Density, which can help identify periodicities in some process. As written, the DFT has a time complexity $O(n^2)$. The FFT, first made by J.W. Cooley and John Tukey, exploits a recursive relation in the DFT that reduces time complexity to $O(n\log n)$. 
+the DFT is a crucial method in signal processing and for the Power Spectral Density, which can help identify periodicities in some process. As written, the DFT has a time complexity of $O(n^2)$. The FFT, first made by J.W. Cooley and John Tukey, exploits a recursive relation in the DFT that reduces time complexity to $O(n\log n)$. 
 
 My implementation of the FFT is the most basic one: the Radix-2 FFT, taking a sequence of size $N$ such that $N$ is a positive power of 2.
 
