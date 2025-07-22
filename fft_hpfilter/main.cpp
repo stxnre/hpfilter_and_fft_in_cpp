@@ -54,7 +54,7 @@ int main(){
     std::vector<double> electric;
     for (const auto& row : data) {
     if (row.size() > 4) {
-        electric.push_back(row[4]);
+        electric.push_back(row[0]);
     }
 }
 
