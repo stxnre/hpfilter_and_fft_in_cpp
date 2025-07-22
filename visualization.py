@@ -21,6 +21,7 @@ sns.lineplot(data, ax=axs[2], x="Quarter", y = "Seasonal", color="green")
 axs[2].set_title("Seasonal")
 plt.tight_layout()
 plt.savefig("australian_beer_decomp.svg",format="svg")
+plt.close()
 
 
 
