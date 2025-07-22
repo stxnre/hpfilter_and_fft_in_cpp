@@ -36,12 +36,18 @@ the DFT is a crucial method in signal processing and for the Power Spectral Dens
 
 My implementation of the FFT is the most basic one: the Radix-2 FFT, taking a sequence of size $N$ such that $N$ is a positive power of 2.
 
+## Running The Code
 
-## Part 1: Running C++ Code
+Before running any code, do install the libraries as listed in `environment.yml`. I used `mamba` through miniforge, so it is probably best to use the same environment manager. Note that `liblapacke` does require the "developer" version, as the default installation does not provide the headers needed for compiling the C++ code.
 
-Navigate to `fft_hpfilter`. It is recommended that you are using a virtual environment handler like mambas, as you can compile the C++ code just as I did. 
+### The C++ Code
 
-Once in the folder, type `make` to compile the file. `make clean` will remove the compiled file.
+Navigate to `fft_hpfilter`. If you have set up the environment correctly, simply activate your environment and type `make` in the terminal to compile the file. `make clean` will remove the compiled file.
 
-## Part 2: Python Visualizations
+Then, running `./seasonal_decompose` will run the code
+
+### Python Visualizations
+
+Navigate back to the main directory (`cd ..`). Then, you can simply type in `python visualization.py` to produce visualizations of the decomposition and of the spectral analysis.
+
 
