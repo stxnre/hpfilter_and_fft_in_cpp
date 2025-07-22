@@ -32,7 +32,7 @@ $$
     X_k = \sum_{t=0}^{n-1} x_t e^{-i 2\pi \frac{kt}{n}}
 $$
 
-the DFT is a crucial method in signal processing and for the Power Spectral Density, which can help identify periodicities in some process. As written, the DFT has a time complexity $\bigO(n^2)$. The FFT, first made by J.W. Cooley and John Tukey, exploits a recursive relation in the DFT that reduces time complexity to $\bigO(n\log n)$. 
+the DFT is a crucial method in signal processing and for the Power Spectral Density, which can help identify periodicities in some process. As written, the DFT has a time complexity $O(n^2)$. The FFT, first made by J.W. Cooley and John Tukey, exploits a recursive relation in the DFT that reduces time complexity to $O(n\log n)$. 
 
 My implementation of the FFT is the most basic one: the Radix-2 FFT, taking a sequence of size $N$ such that $N$ is a positive power of 2.
 
