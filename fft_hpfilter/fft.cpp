@@ -2,8 +2,8 @@
 
 const double pi = std::acos(-1);
 
-#define MAXN = 100001;
-vector<int> spfs(MAXN+1,1);
+#define MAXN 100001
+std::vector<int> spf(MAXN+1,1);
 
 
 void sieve(){
@@ -38,7 +38,7 @@ std::vector<std::complex<double>> mixrad_fft(std::vector<double> &input){
 
     const int radix = spf[N]; //smallest prime factor of N
     const int M = N / radix;
-    std::vector<std::vector<std::complex<double>> X(radix,M);
+    std::vector<std::vector<std::complex<double>>> X(radix,std::vector<std::complex<double>>(M));
 
     for(int r=0;r<radix;++r){
 
@@ -54,7 +54,7 @@ std::vector<std::complex<double>> mixrad_fft(std::vector<double> &input){
         }
     }
 
-    for(int r = 0;r<radix;++r){
+    for(int k = 0;k<radix;++k){
         std::vector<std::complex<double>> temp(M, 0.0);
         for (int r = 0; r < radix; ++r) {
         std::complex<double> twiddle = std::polar(1.0,-2 * pi * k * M * r / ((double)N));

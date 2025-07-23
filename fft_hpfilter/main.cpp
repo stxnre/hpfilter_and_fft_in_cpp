@@ -86,7 +86,7 @@ int main(){
         time_rep[j] = (*seasonal)[j];
     }
 
-    std::vector<std::complex<double>> freq_rep = rad2_fft(time_rep);
+    std::vector<std::complex<double>> freq_rep = mixrad_fft(time_rep);
     std::vector<double> psd = periodogram(freq_rep); 
 
     // Save PSD result
