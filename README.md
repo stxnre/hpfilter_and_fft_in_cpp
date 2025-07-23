@@ -55,9 +55,10 @@ Navigate back to the main directory (`cd ..`). Then, you can simply type in `pyt
 
 ### Season-Trend Decomposition
 
-![Seasonal-Trend Decomposition of Australian Beer Production](australian_beer_decomp.svg)
+<img src="australian_beer_decomp.svg" alt="Seasonal-Trend Decomposition of Australian Beer Production" width="200" height="100">
 
 ### Spectral Analysis
 
-![Periodogram of Seasonal Component](aus_prod_periodogram.svg)
+<img src="aus_prod_periodogram.svg" alt="Periodogram of Seasonal Component" width="200" height="100">
+
 
