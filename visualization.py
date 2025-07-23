@@ -22,7 +22,7 @@ axs[1].set_title("Trend")
 sns.lineplot(data, ax=axs[2], x="Quarter", y = "Seasonal", color="green")
 axs[2].set_title("Seasonal")
 plt.tight_layout()
-plt.savefig("australian_beer_decomp.svg",format="svg")
+plt.savefig("images/australian_beer_decomp.svg",format="svg")
 plt.close()
 
 
@@ -32,5 +32,5 @@ period['Freq'] = np.arange(0,period.shape[0],1) / period.shape[0]
 
 sns.lineplot(period, x = 'Freq', y = "PSD")
 plt.tight_layout()
-plt.savefig("aus_prod_periodogram.svg",format="svg")
+plt.savefig("images/aus_prod_periodogram.svg",format="svg")
 plt.close()
