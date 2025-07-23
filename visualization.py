@@ -31,5 +31,6 @@ period = pd.read_csv("fft_hpfilter/periodogram.csv",names=["PSD"],header=None)
 period['Freq'] = np.arange(0,period.shape[0],1) / period.shape[0]
 
 sns.lineplot(period, x = 'Freq', y = "PSD")
+plt.tight_layout()
 plt.savefig("aus_prod_periodogram.svg",format="svg")
 plt.close()

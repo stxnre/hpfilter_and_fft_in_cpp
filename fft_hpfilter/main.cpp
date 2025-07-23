@@ -37,7 +37,7 @@ int main(){
         dates.push_back(token);
 
         std::vector<double> row;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; ++i) {
             std::getline(ss, token, ',');
             
             if (token=="NA"||token.empty()) {
@@ -69,7 +69,7 @@ int main(){
     if(!outputFile.is_open()) throw std::runtime_error("Error: Could not open output file.");
 
     outputFile << "Quarter,Original,Trend,Seasonal\n";
-    for(int i = 0;i<dates.size();i++){
+    for(int i = 0;i<dates.size();++i){
         outputFile << dates[i] << ','
                     << beer[i] << ','
                     << (*trend)[i] << ','
@@ -78,14 +78,6 @@ int main(){
     outputFile.close();
 
     // Spectral Analysis
-    int k = (int)std::log2(beer.size());
-    int N = pow(2,k);
-
-    std::vector<double> time_rep(N);
-    for(int j=0;j<N;j++){
-        time_rep[j] = (*seasonal)[j];
-    }
-
     std::vector<std::complex<double>> freq_rep = mixrad_fft(time_rep);
     std::vector<double> psd = periodogram(freq_rep); 
 
@@ -93,7 +85,7 @@ int main(){
     std::ofstream periodFile("periodogram.csv");
     if(!periodFile.is_open()) throw std::runtime_error("Error: Could not open output file.");
 
-    for(int l=0;l<psd.size();l++){
+    for(int l=0;l<psd.size();++l){
         periodFile << psd[l] << '\n';
     }
 

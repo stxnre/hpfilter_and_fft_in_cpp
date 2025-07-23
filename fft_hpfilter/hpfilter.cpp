@@ -15,7 +15,7 @@ void pentadiag_cholesky_decomp(std::vector<double> &a, std::vector<double> &b, s
     b[0] /= a[0];
     a[1] = std::sqrt(a[1] - std::pow(b[0],2));
 
-    for(int i=2;i<N;i++){
+    for(int i=2;i<N;++i){
         c[i-2] /= a[i-2];
         b[i-1] = (b[i-1] - (b[i-2]* c[i-2])) / a[i-1];
         a[i] = std::sqrt(a[i] - std::pow(c[i-2],2) - std::pow(b[i-1],2));
@@ -37,14 +37,14 @@ std::vector<double> pentadiag_cholesky_solver(std::vector<double> &a, std::vecto
     //forward substitution
     x[0] = z[0] / a[0];
     x[1] = (z[1] - (b[0] *x[0])) / a[1];
-    for(int i=2;i<N;i++){
+    for(int i=2;i<N;++i){
         x[i] = (z[i] - (c[i-2]*x[i-2]) - (b[i-1]*x[i-1])) / a[i];
     }
 
     //backward substitution
     x[N-1] /= a[N-1];
     x[N-2] = (x[N-2] - (b[N-2]* x[N-1]))/ a[N-2];
-    for(int i=N-3;i>=0;i--){
+    for(int i=N-3;i>=0;--i){
         x[i] = (x[i] - (c[i]*x[i+2]) - (b[i]*x[i+1])) / a[i];
     }
 
@@ -75,7 +75,7 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter(const std::vector<do
     std::vector<double> trend = pentadiag_cholesky_solver(d0,d1,d2,series);
     std::vector<double> seasonal(N);
 
-    for(int i=0;i<N;i++)
+    for(int i=0;i<N;++i)
     {
         seasonal[i] = series[i] - trend[i];
     }
@@ -103,7 +103,7 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter_lapacke(const std::v
 
     //Banded matrix
     std::vector<double> banded((kd + 1) * N,0);
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N;++i) {
         banded[(kd) + i*(kd+1)] = d0[i];  // main diagonal on row kd
         if (i < N-1)
             banded[(kd-1) + (i+1)*(kd+1)] = d1[i]; // first superdiag on row kd-1, shifted right by 1
@@ -122,7 +122,7 @@ std::pair<std::vector<double>,std::vector<double>> hpfilter_lapacke(const std::v
 
     std::vector<double> seasonal(N);
 
-    for(int i=0;i<N;i++)
+    for(int i=0;i<N;++i)
     {
         seasonal[i] = series[i] - series_copy[i];
     }

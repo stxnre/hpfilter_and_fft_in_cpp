@@ -51,3 +51,13 @@ Then, running `./seasonal_decompose` will run the code
 Navigate back to the main directory (`cd ..`). Then, you can simply type in `python visualization.py` to produce visualizations of the decomposition and of the spectral analysis.
 
 
+## Visual Results
+
+### Season-Trend Decomposition
+
+![Seasonal-Trend Decomposition of Australian Beer Production](australian_beer_decomp.svg)
+
+### Spectral Analysis
+
+![Periodogram of Seasonal Component](aus_prod_periodogram.svg)
+
