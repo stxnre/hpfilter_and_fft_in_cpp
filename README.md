@@ -34,7 +34,9 @@ $$
 
 the DFT is a crucial method in signal processing and for the Power Spectral Density, which can help identify periodicities in some process. As written, the DFT has a time complexity of $O(n^2)$. The FFT, first made by J.W. Cooley and John Tukey, exploits a recursive relation in the DFT that reduces time complexity to $O(n\log n)$. 
 
-My implementation of the FFT is the most basic one: the Radix-2 FFT, taking a sequence of size $N$ such that $N$ is a positive power of 2.
+My original implementation of the FFT was the Radix-2 FFT, taking a sequence of size $N$ such that $N$ is a positive power of 2. This did not work as well on the data, so I was led to the more flexible (but complicated) "Mixed-Radix" FFT, which uses the prime factorization of $N$ to yield the result. 
+
+After performing the FFT, I defined a function `periodogram` which serves as an approximation of the Power Spectral Density, allowing us to visualize and identify the prominent frequencies in the seasonal component.
 
 ## Running The Code
 
@@ -55,10 +57,10 @@ Navigate back to the main directory (`cd ..`). Then, you can simply type in `pyt
 
 ### Season-Trend Decomposition
 
-<img src="images/australian_beer_decomp.svg" alt="Seasonal-Trend Decomposition of Australian Beer Production" width="600" height="300">
+<img src="images/australian_beer_decomp.svg" alt="Seasonal-Trend Decomposition of Australian Beer Production">
 
 ### Spectral Analysis
 
-<img src="images/aus_prod_periodogram.svg" alt="Periodogram of Seasonal Component" width="600" height="300">
+<img src="images/aus_prod_periodogram.svg" alt="Periodogram of Seasonal Component">
 
 
