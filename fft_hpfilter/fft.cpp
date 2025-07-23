@@ -50,7 +50,7 @@ std::vector<std::complex<double>> mixrad_fft(std::vector<double> &input){
         std::vector<std::complex<double>> r_fft = mixrad_fft(input_r);
         for(int m=0;m<M;++m){
             std::complex<double> t = std::polar(1.0, -2 * pi * m * r /((double)N)) ;
-            X[r][m] = t * r_fft[r];
+            X[r][m] = t * r_fft[m];
         }
     }
 

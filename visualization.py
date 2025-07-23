@@ -10,6 +10,8 @@ data = pd.read_csv("fft_hpfilter/season_trend_decomp.csv", header=0)
 data['Quarter'] = data['Quarter'].str.replace(r'(\d+) (Q\d)', r'\1-\2', regex=True)
 data['Quarter'] = pd.PeriodIndex(data['Quarter'], freq='Q').to_timestamp()
 
+
+# Seasonal-Trend Decomposition
 fig,axs = plt.subplots(nrows=3, figsize=(12,8))
 fig.suptitle("Quarterly Beer Production in Australia")
 
@@ -24,11 +26,10 @@ plt.savefig("australian_beer_decomp.svg",format="svg")
 plt.close()
 
 
-
+# Periodogram
 period = pd.read_csv("fft_hpfilter/periodogram.csv",names=["PSD"],header=None)
 period['Freq'] = np.arange(0,period.shape[0],1) / period.shape[0]
 
-
-
 sns.lineplot(period, x = 'Freq', y = "PSD")
-plt.show()
+plt.savefig("aus_prod_periodogram.svg",format="svg")
+plt.close()
