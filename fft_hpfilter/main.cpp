@@ -14,6 +14,7 @@ g++ main.o hpfilter.o fft.o -o seasonal_trend
 
 int main(){
     int lambda = 1000;
+    sieve();
 
     // Read data
     std::ifstream inputFile("aus_production.csv");

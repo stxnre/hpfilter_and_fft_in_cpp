@@ -49,7 +49,7 @@ std::vector<std::complex<double>> mixrad_fft(std::vector<double> &input){
 
         std::vector<std::complex<double>> r_fft = mixrad_fft(input_r);
         for(int m=0;m<M;++m){
-            std::complex<double> t = std::polar(1.0, -2 * pi * m * r / N) ;
+            std::complex<double> t = std::polar(1.0, -2 * pi * m * r /((double)N)) ;
             X[r][m] = t * r_fft[r];
         }
     }
@@ -57,7 +57,7 @@ std::vector<std::complex<double>> mixrad_fft(std::vector<double> &input){
     for(int r = 0;r<radix;++r){
         std::vector<std::complex<double>> temp(M, 0.0);
         for (int r = 0; r < radix; ++r) {
-        std::complex<double> twiddle = std::polar(1.0,-2 * pi * k * M * r / N);
+        std::complex<double> twiddle = std::polar(1.0,-2 * pi * k * M * r / ((double)N));
             for (int m = 0; m < M; ++m) {
             temp[m] += twiddle * X[r][m];
             }
@@ -103,7 +103,7 @@ std::vector<std::complex<double>> rad2_fft(std::vector<double> &input){
    std::vector<std::complex<double>> evenfft = rad2_fft(even);
 
    for(int j = 0;j<N/2;j++){
-        std::complex<double> t = std::polar(1.0, -2 * pi * j / N) * odd[j];
+        std::complex<double> t = std::polar(1.0, -2 * pi * j / ((double)N)) * odd[j];
         out[j] = (even[j] + t);
         out[j + N/2] = (even[j] - t);
    }
