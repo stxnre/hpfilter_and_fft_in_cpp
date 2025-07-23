@@ -1,5 +1,4 @@
 *.o
-*.svg
 
 .DS_Store
 fft_hpfilter/fft.o
